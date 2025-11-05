@@ -19,6 +19,10 @@ spec:
     {{- with .tool }}
     {{- . | toYaml | nindent 4 }}
     {{- end }}
+    helm:
+      valueFiles:
+      - "values-{{ .namespace | default .name }}.yaml"
+
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
