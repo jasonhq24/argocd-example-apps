@@ -21,8 +21,7 @@ spec:
     {{- end }}
     helm:
       valueFiles:
-      - values-qa.yaml
-      - values-production.yaml
+      - "values-$ARGOCD_APP_NAMESPACE.yaml"  
 
   syncPolicy:
     syncOptions:
