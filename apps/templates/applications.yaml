@@ -21,7 +21,8 @@ spec:
     {{- end }}
     helm:
       valueFiles:
-      - "values-{{ .namespace | default .name }}.yaml"
+      - values-qa.yaml
+      - values-production.yaml
 
   syncPolicy:
     syncOptions:
