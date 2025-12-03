@@ -1,9 +1,10 @@
 name: pr-preview-build
-run-name: Build image if PR has label preview
+run-name: Build image if PR has label preview and is not closed
 on:
   pull_request:
     branches:
       - 'main'
+      - 'master'
       - 'ENG-**'
     types:
       - opened
@@ -11,20 +12,17 @@ on:
       - synchronize
       - reopened
       - ready_for_review
-
 jobs:
-  show-labels:
-    runs-on: ubuntu-latest
-    steps:
-      - name: showing-labels  
-        run: |
-          echo "$LABELS"
-          echo "$LABELS" | sed 's/"/\\"/g'
   next-job:
     runs-on: ubuntu-latest
-    needs: [show-labels]
     if: ${{ github.event.pull_request.closed == false && github.event.pull_request.merged == false && (github.event.label.name == 'preview' || contains( github.event.pull_request.labels.*.name, 'preview')) && github.event.pull_request.draft == false }}
     steps:
     - name: testing
       run: |
-        echo "RUNNING"
+        echo "RUNNING 'preview' in labels: ${{ contains( github.event.pull_request.labels.*.name, 'preview') }}" 
+  # run-if-skipped:
+  #   needs: [next-job]
+  #   if: ${{ needs.next-job.result == 'skipped' }}
+  #   runs-on: ubuntu-latest
+    
+    
