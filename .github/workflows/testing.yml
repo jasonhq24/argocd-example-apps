@@ -1,5 +1,5 @@
 name: pr-preview-build
-run-name: Build image if PR has label preview
+run-name: Build image if PR has label preview and is not closed
 on:
   pull_request:
     branches:
