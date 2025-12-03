@@ -26,6 +26,7 @@ jobs:
     if: ${{ github.event.pull_request.closed == false && github.event.pull_request.merged == false && (github.event.label.name == 'preview' || contains( github.event.pull_request.labels.*.name, 'preview')) && github.event.pull_request.draft == false }}
     steps:
     - name: testing
+      env:
+        TARGET_LABEL: 'preview'
       run: |
-        targetLabel='preview'
-        echo "RUNNING $targetLabel in labels: ${{ contains( github.event.pull_request.labels.*.name, $targetLabel) }}" 
+        echo "RUNNING ${{ env.TARGET_LABEL }} in labels: ${{ contains( github.event.pull_request.labels.*.name, ${{ env.TARGET_LABEL }}) }}" 
