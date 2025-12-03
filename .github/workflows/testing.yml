@@ -20,7 +20,9 @@ jobs:
     - name: testing
       run: |
         echo "RUNNING 'preview' in labels: ${{ contains( github.event.pull_request.labels.*.name, 'preview') }}" 
-  run-if-skipped:
-    if: ${{ jobs.next-job.result == 'skipped' }}
-    runs-on: ubuntu-latest
+  # run-if-skipped:
+  #   needs: [next-job]
+  #   if: ${{ needs.next-job.result == 'skipped' }}
+  #   runs-on: ubuntu-latest
+    
     
